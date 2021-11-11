@@ -11,7 +11,7 @@ terraform {
 
 provider "aws" {
   profile = "sandbox"
-  region  = "eu-west-1"
+  region  = "us-east-2"
 }
 
 resource "aws_iam_user" "cloudwatch" {
@@ -40,4 +40,10 @@ resource "aws_iam_user_policy" "cloudwatch" {
   ]
 }
 EOF
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+  monitoring    = true
 }
