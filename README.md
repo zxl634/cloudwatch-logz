@@ -18,4 +18,4 @@ export P8S_LOGZIO_NAME=<<P8S_LOGZIO_NAME>>
 1. Run `run-docker.sh`
 1. Check `http://localhost:5001/config/cloudwatch` and `http://localhost:5001/config/otel` to view service configurations
 
-- [ ] What to expect in logz.io?
+- [ ] Create nginx server that has something to report: https://logz.io/blog/nginx-web-server-monitoring-tutorial/

@@ -42,8 +42,23 @@ resource "aws_iam_user_policy" "cloudwatch" {
 EOF
 }
 
+data "template_file" "user_data" {
+  template = file("user-data.sh")
+}
+
 resource "aws_instance" "example" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t2.micro"
-  monitoring    = true
+  ami                    = "ami-0c55b159cbfafe1f0"
+  instance_type          = "t2.micro"
+  monitoring             = true
+  user_data              = data.template_file.user_data.rendered
+  vpc_security_group_ids = [aws_security_group.instance.id]
+}
+resource "aws_security_group" "instance" {
+  name = "terraform-example-instance"
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
